@@ -49,7 +49,10 @@ var download = function download() {
 
 		    response.on('end', function() {
 		        file.end();
-		        emit('downloaded', { localFile: localFile, remoteFile: remoteFile, totalSize: totalDownload });
+		        
+		        if (response.statusCode !== 200) {
+		        	emit('downloaded', { localFile: localFile, remoteFile: remoteFile, totalSize: totalDownload });
+		        }
 		    });
 
 			response.on('error', function(e) {
