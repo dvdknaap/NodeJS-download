@@ -8,11 +8,12 @@ A small NodeJS module to download remote files to local, works with triggers
 Requirements
 ----
 No requirements this module is only using native NodeJS modules
+For the demo i used [NodeJS queue manager] (https://github.com/DutchProgrammer/NodeJS-queue)
 
 Version
 ----
 
-1.0
+1.0.0
 
 Installation
 --------------
@@ -24,7 +25,6 @@ git clone https://github.com/DutchProgrammer/NodeJS-download.git ./modules/NodeJ
 
 Examples
 --------------
-
 
 ```sh
 var queue       = require('./queue');
