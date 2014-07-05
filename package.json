@@ -1,0 +1,24 @@
+{
+  "name": "NodeJS-queue",
+  "version": "1.0.0",
+  "description": "A small NodeJS module to download remote files to local, works with triggers",
+  "main": "download.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DutchProgrammer/NodeJS-download"
+  },
+  "keywords": [
+    "nodejs",
+    "download",
+    "remote file download",
+    "triggers"
+  ],
+  "author": "Danny van der Knaap",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/DutchProgrammer/NodeJS-download/issues"
+  }
+}
