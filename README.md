@@ -9,7 +9,7 @@ Requirements
 ----
 No requirements this module is only using native NodeJS modules
 
-For the demo i used [NodeJS queue manager] (https://github.com/DutchProgrammer/NodeJS-queue)
+> For the demo i used [NodeJS queue manager] (https://github.com/DutchProgrammer/NodeJS-queue)
 
 Version
 ----
