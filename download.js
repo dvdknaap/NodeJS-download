@@ -14,7 +14,6 @@ var download = function download() {
 		var file          = fs.createWriteStream(localFile);
 	
 		http.get(remoteFile, function (response) {
-
 	        if (encoding) {
 	            response.setEncoding(encoding);
 	        }
