@@ -1,9 +1,11 @@
 var download = function download() {
 
-	var fs            = require('fs');
-	var url           = require('url');
-	var http          = require('http');
-	var triggers      = {
+	var fs       = require('fs');
+	var url      = require('url');
+	var http     = require('http');
+	var https    = require('https');
+	var request  = require('request');
+	var triggers = {
 		downloaded: [],
 		data: [],
 		error: []
@@ -12,8 +14,13 @@ var download = function download() {
 	this.downloadFile = function downloadFile(remoteFile, localFile, encoding) {
 		var totalDownload = 0;
 		var file          = fs.createWriteStream(localFile);
-	
-		http.get(remoteFile, function (response) {
+		
+		var downloadProtocol = http;
+		if (remoteFile.substr(0, 5) === 'https') {
+			downloadProtocol = https;
+		}
+
+		downloadProtocol.get(remoteFile, function (response) {
 	        if (encoding) {
 	            response.setEncoding(encoding);
 	        }
@@ -48,9 +55,11 @@ var download = function download() {
 
 		    response.on('end', function() {
 		        file.end();
-		        
-		        if (response.statusCode !== 200) {
+
+		        if (response.statusCode === 200) {
 		        	emit('downloaded', { localFile: localFile, remoteFile: remoteFile, totalSize: totalDownload });
+		        } else {
+		        	fs.unlink(localFile);
 		        }
 		    });
 
@@ -60,9 +69,24 @@ var download = function download() {
 		});
 	};
 
+	this.downloadPicture = function downloadFile(remoteFile, localFile, encoding) {
+		var file          = fs.createWriteStream(localFile);
+
+		request.head(remoteFile, function(err, res, body) {
+    		if (!err && res.statusCode == 200) {
+
+				var r = request(remoteFile).pipe(file);
+		        emit('downloaded', { localFile: localFile, remoteFile: remoteFile, totalSize: res.headers['content-length'] });
+			} else {
+		        emit('error', { statusCode: res.statusCode, res: err });
+			}
+		});
+
+	};
+
 	var emit = function emit(event, params) {
 		if (triggers[event] === undefined ) {
-			new Error('No valid event');
+			throw new Error('No valid event');
 			return false;
 		}
 
@@ -81,11 +105,11 @@ var download = function download() {
 
 	this.on = function on(event, userFunction) {
 		if (triggers[event] === undefined ) {
-			new Error('No valid event');
+			throw new Error('No valid event');
 		}
 
 		if (userFunction === undefined || typeof userFunction !== 'function' ) {
-			new Error('Callback function has to be an function');
+			throw new Error('Callback function has to be an function');
 		}
 
 		if (event.indexOf(' ') !== -1) {
