@@ -1,5 +1,5 @@
 {
-  "name": "NodeJS-queue",
+  "name": "nodejs-queue",
   "version": "1.0.5",
   "description": "A small NodeJS module to download remote files to local, works with triggers",
   "main": "download.js",
