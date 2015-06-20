@@ -1,0 +1,93 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'node', '/usr/bin/npm', 'publish' ]
+2 info using npm@2.11.3
+3 info using node@v0.10.25
+4 verbose node symlink /usr/bin/node
+5 verbose publish [ '.' ]
+6 silly cache add args [ '.', null ]
+7 verbose cache add spec .
+8 silly cache add parsed spec { raw: '.',
+8 silly cache add   scope: null,
+8 silly cache add   name: null,
+8 silly cache add   rawSpec: '.',
+8 silly cache add   spec: '/home/hefner/public_html/NodeJS-download',
+8 silly cache add   type: 'directory' }
+9 verbose addLocalDirectory /home/hefner/.npm/nodejs-queue/1.0.5/package.tgz not in flight; packing
+10 verbose tar pack [ '/home/hefner/.npm/nodejs-queue/1.0.5/package.tgz',
+10 verbose tar pack   '/home/hefner/public_html/NodeJS-download' ]
+11 verbose tarball /home/hefner/.npm/nodejs-queue/1.0.5/package.tgz
+12 verbose folder /home/hefner/public_html/NodeJS-download
+13 info prepublish nodejs-queue@1.0.5
+14 verbose addLocalTarball adding from inside cache /home/hefner/.npm/nodejs-queue/1.0.5/package.tgz
+15 silly cache afterAdd nodejs-queue@1.0.5
+16 verbose afterAdd /home/hefner/.npm/nodejs-queue/1.0.5/package/package.json not in flight; writing
+17 verbose afterAdd /home/hefner/.npm/nodejs-queue/1.0.5/package/package.json written
+18 silly publish { name: 'nodejs-queue',
+18 silly publish   version: '1.0.5',
+18 silly publish   description: 'A small NodeJS module to download remote files to local, works with triggers',
+18 silly publish   main: 'download.js',
+18 silly publish   scripts: { test: 'echo "Error: no test specified" && exit 1' },
+18 silly publish   repository:
+18 silly publish    { type: 'git',
+18 silly publish      url: 'git+https://github.com/DutchProgrammer/NodeJS-download.git' },
+18 silly publish   keywords: [ 'nodejs', 'download', 'remote file download', 'triggers' ],
+18 silly publish   author: { name: 'Danny van der Knaap' },
+18 silly publish   license: 'BSD-2-Clause',
+18 silly publish   bugs: { url: 'https://github.com/DutchProgrammer/NodeJS-download/issues' },
+18 silly publish   readme: 'NodeJS download\n=========\nA small NodeJS module to download remote files to local, works with triggers\n\n- Download remote files\n- Can use triggers on every step\n\nRequirements\n----\nNo requirements this module is only using native NodeJS modules\n\n> For the demo i used [NodeJS queue manager] (http://dutchprogrammer.github.io/NodeJS-queue)\n\nVersion\n----\n\n1.0.0\n\nInstallation\n--------------\n\n```sh\nmkdir modules\ngit clone https://github.com/DutchProgrammer/NodeJS-download.git ./modules/NodeJS-download\n```\n\nExamples\n--------------\n\n```sh\nvar queue       = require(\'./queue\');\nvar fs          = require(\'fs\');\nvar download    = require(\'./download\');\n\nvar httpZipFile      = \'http://domain.com/all.csv\';\nvar localZipFileName = \'all.csv\';\nvar localZipFile     = \'./tmp/\'+localZipFileName;\n\n//Available triggers\n\n//When settings has been set\nqueue.on(\'init\', function (settings) {\n    console.log(settings);\n});\n\n//When an job has been added\nqueue.on(\'add\', function (jobDetails) {\n    console.log(jobDetails);\n});\n\n//When an job has executed\nqueue.on(\'jobCallback\', function (jobDetails) {\n    console.log(jobDetails);\n});\n\n//When the timeout has been triggers for an job\nqueue.on(\'timeout\', function (jobDetails) {\n    console.log(jobDetails);\n});\n\n//When job has started\nqueue.on(\'run\', function (jobDetails) {\n    console.log(jobDetails);\n});\n\nfs.exists(localZipFile, function (exists) {\n    if (!exists) {\n\t\tqueue.add(\'Downloading \'+localZipFile, download.downloadFile, [httpZipFile, localZipFile]);\n\t\tqueue.add(\'Parse \'+localZipFile, parseAllProducts, [localZipFile]);\n\t\tqueue.run();\n\t\treturn;\n\t}\n\n\tfs.stat(localZipFile, function(err, stats) {\n\n\t\tvar now = (new Date()).getTime()/1000;\n\n\t\tif (now-(new Date(stats.mtime)).getTime()/1000 > maxFileTime) {\n\n\t\t\tqueue.add(\'Downloading \'+localZipFile, download.downloadFile, [httpZipFile, localZipFile]);\n\t\t\tqueue.add(\'Parse \'+localZipFile, parseAllProducts, [localZipFile]);\n\t\t} else {\n\t\t\tqueue.add(\'Parse \'+localZipFile, parseAllProducts, [localZipFile]);\n\t\t}\n\n\t\tqueue.run();\n\t});\n});\n\nparseAllProducts = function (done, jobName, csvFile) {\n\tdone();\n\n\tfs.readFile(csvFile, function (err, data) {\n\t\tif (err) {\n\t\t\tconsole.log(\'parseAllProducts errr: %s \'.error, err);\n\t\t\tprocess.exit();\n\t\t\treturn;\n\t\t}\n\t\t\n\t\t//do you thing\n\t});\n};\n```\n\nLicense\n----\n\nMIT\n',
+18 silly publish   readmeFilename: 'README.md',
+18 silly publish   gitHead: '42edb7a7d7ede0c310dcef0992a31dba0d652300',
+18 silly publish   homepage: 'https://github.com/DutchProgrammer/NodeJS-download#readme',
+18 silly publish   _id: 'nodejs-queue@1.0.5',
+18 silly publish   _shasum: '95891319aa86868d4d846b2c34826d76ca8fe9ea',
+18 silly publish   _from: '.' }
+19 verbose getPublishConfig undefined
+20 silly mapToRegistry name nodejs-queue
+21 silly mapToRegistry using default registry
+22 silly mapToRegistry registry https://registry.npmjs.org/
+23 silly mapToRegistry uri https://registry.npmjs.org/nodejs-queue
+24 verbose publish registryBase https://registry.npmjs.org/
+25 silly publish uploading /home/hefner/.npm/nodejs-queue/1.0.5/package.tgz
+26 verbose request uri https://registry.npmjs.org/nodejs-queue
+27 verbose request sending authorization for write operation
+28 info attempt registry request try #1 at 17:00:27
+29 verbose request using bearer token for auth
+30 verbose request id 019e2f712e0c8d66
+31 http request PUT https://registry.npmjs.org/nodejs-queue
+32 http 403 https://registry.npmjs.org/nodejs-queue
+33 verbose headers { 'content-type': 'application/json',
+33 verbose headers   'cache-control': 'max-age=60',
+33 verbose headers   'content-length': '95',
+33 verbose headers   'accept-ranges': 'bytes',
+33 verbose headers   date: 'Sat, 20 Jun 2015 15:00:29 GMT',
+33 verbose headers   via: '1.1 varnish',
+33 verbose headers   connection: 'keep-alive',
+33 verbose headers   'x-served-by': 'cache-ams4125-AMS',
+33 verbose headers   'x-cache': 'MISS',
+33 verbose headers   'x-cache-hits': '0',
+33 verbose headers   'x-timer': 'S1434812428.266893,VS0,VE916' }
+34 verbose request invalidating /home/hefner/.npm/registry.npmjs.org/nodejs-queue on PUT
+35 error publish Failed PUT 403
+36 verbose stack Error: "You cannot publish over the previously published version 1.0.5." : nodejs-queue
+36 verbose stack     at CachingRegistryClient.<anonymous> (/usr/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:247:14)
+36 verbose stack     at Request._callback (/usr/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:170:14)
+36 verbose stack     at Request.self.callback (/usr/lib/node_modules/npm/node_modules/request/request.js:354:22)
+36 verbose stack     at Request.EventEmitter.emit (events.js:98:17)
+36 verbose stack     at Request.<anonymous> (/usr/lib/node_modules/npm/node_modules/request/request.js:1207:14)
+36 verbose stack     at Request.EventEmitter.emit (events.js:117:20)
+36 verbose stack     at IncomingMessage.<anonymous> (/usr/lib/node_modules/npm/node_modules/request/request.js:1153:12)
+36 verbose stack     at IncomingMessage.EventEmitter.emit (events.js:117:20)
+36 verbose stack     at _stream_readable.js:920:16
+36 verbose stack     at process._tickCallback (node.js:415:13)
+37 verbose statusCode 403
+38 verbose pkgid nodejs-queue
+39 verbose cwd /home/hefner/public_html/NodeJS-download
+40 error Linux 3.13.0-53-generic
+41 error argv "node" "/usr/bin/npm" "publish"
+42 error node v0.10.25
+43 error npm  v2.11.3
+44 error code E403
+45 error "You cannot publish over the previously published version 1.0.5." : nodejs-queue
+46 error If you need help, you may report this error at:
+46 error     <https://github.com/npm/npm/issues>
+47 verbose exit [ 1, true ]
